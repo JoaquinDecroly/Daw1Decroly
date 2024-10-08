@@ -30,6 +30,7 @@ public class Billetes {
 
 		        int billete5 = cantidad / 5;
 			cantidad %= 5;
+		
 		        System.out.println("Billetes necesarios:");
 		        if (billete500 > 0) {
 		            System.out.println(billete500 + " billete(s) de 500€");
