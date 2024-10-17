@@ -1,34 +1,36 @@
 import java.util.Scanner;
 
 public class PQ {
-        public static void main(String[] args) {
-            Scanner entrada = new Scanner(System.in);
-            int p = 0;
-            int q = 0; 
-            int i = 0;
-
-            double[] numeros = new double[p];
-            for (i = 0; i < p; i++) { 
-            System.out.println("Introduce P:");
-            numeros[p] = entrada.nextInt();
-            for (i = 0; i < p; i++) { 
-                System.out.println("Introduce Q:");                
-                numeros[q] = entrada.nextInt();
-                @SuppressWarnings("unused")
-                double PQ = numeros[p] + numeros[q];
-                }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Introduce el valor de P: ");
+        int p = scanner.nextInt();
+        
+        System.out.print("Introduce el valor de Q: ");
+        int q = scanner.nextInt();
+        
+        int longitud = Math.abs(q - p) +1;
+        
+        int[] array = new int[longitud];
+        
+        if (p <= q) {
+            for (int i = 0; i < longitud; i++) {
+                array[i] = p + i;
             }
-            double PQ = 0;
-            System.out.println("El array que empieza por P, y termina por Q es: " +PQ);
-
-
-           
-           
-            
-            
-               
-           }
-    
-            
+        } else {
+            for (int i = 0; i < longitud; i++) {
+                array[i] = p - i;
+            }
         }
+        
+        System.out.print("El array desde P hasta Q es: [");
+        for (int i = 0; i < longitud; i++) {
+            System.out.print(array[i]);
+            if (i < longitud - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]");
+    }
 }
