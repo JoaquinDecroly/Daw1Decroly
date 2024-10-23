@@ -40,6 +40,10 @@ for (i = 0; i < N; i++) {
             menores0++;
         }
     }
+     //Salida
+    System.out.println("Cantidad de valores mayores que cero: " + mayores0);
+    System.out.println("Cantidad de valores menores que cero: " + menores0);
+    System.out.println("Cantidad de valores iguales a cero: " + iguales0);
 }        
     }
             
