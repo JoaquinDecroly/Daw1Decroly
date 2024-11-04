@@ -1,10 +1,8 @@
 import java.util.Scanner;
 
-public class PTL2 {
-public static void main(String[] args) {
-    
-     String opcionMaquina = ""; 
-     
+public class PLT {
+    public static void main(String[] args) {
+        String opcionMaquina = ""; 
         String opcion = "";
         Scanner sc = new Scanner(System.in);
         String[] opciones = {"Piedra", "Papel", "Tijera"};
@@ -18,7 +16,6 @@ public static void main(String[] args) {
         System.out.println("Papel (L) gana a Piedra (P).");
         System.out.println("Escribe 'S' para salir del juego.");
         System.out.println("---------------------------------");
-    
 
         do {
             System.out.println();
@@ -29,8 +26,13 @@ public static void main(String[] args) {
             System.out.println("S");
             opcion = sc.nextLine();
 
+            if (opcion.equals("S")) {
+                System.out.println("Adios...");
+                break; 
+            }
+
             int aleatorio = (int) (Math.random() * 3);
-            
+            opcionMaquina = opciones[aleatorio];
 
             switch (opcion) {
                 case "P":
@@ -44,45 +46,41 @@ public static void main(String[] args) {
                 case "T":
                     System.out.println("Has elegido Tijera");
                     break;
-                case "S":
-                    System.out.println("Adios...");
-                    break;
 
                 default:
                     System.err.println("Opcion invalida, recuerda que la eleccion debe ser en mayusculas"); 
+                    continue;
             }
 
-            
-            System.out.println("El ordenador eligió: " + opciones[aleatorio]); 
+            System.out.println("El ordenador eligió: " + opcionMaquina); 
 
-       
-           if ("P ".equals(opcion) && "0".equals(opciones[aleatorio])) {
-                System.out.println("Has ganado");
-            } else if ("P ".equals(opcion) && "1".equals(opciones[aleatorio])) {
-                System.out.println("Has perdido");
-            } else if ("P".equals(opcion) && "2".equals(opciones[aleatorio])) {
-                System.out.println("Empate");
+            if (opcion.equals("P")) {
+                if (opcionMaquina.equals("Piedra")) {
+                    System.out.println("Empate");
+                } else if (opcionMaquina.equals("Tijera")) {
+                    System.out.println("Has ganado");
+                } else {
+                    System.out.println("Has perdido");
+                }
+            } else if (opcion.equals("L")) {
+                if (opcionMaquina.equals("Papel")) {
+                    System.out.println("Empate");
+                } else if (opcionMaquina.equals("Piedra")) {
+                    System.out.println("Has ganado");
+                } else {
+                    System.out.println("Has perdido");
+                }
+            } else if (opcion.equals("T")) {
+                if (opcionMaquina.equals("Tijera")) {
+                    System.out.println("Empate");
+                } else if (opcionMaquina.equals("Papel")) {
+                    System.out.println("Has ganado");
+                } else {
+                    System.out.println("Has perdido");
+                }
             }
-            if ("L ".equals(opcion) && "0".equals(opciones[aleatorio])) {
-            System.out.println("Has perdido");  
-            } else if ("L ".equals(opcion) && "1".equals(opciones[aleatorio])) {
-                System.out.println("Has ganado");
-            } else if ("L".equals(opcion) && "2".equals(opciones[aleatorio])) {
-                System.out.println("Empate");
-            }
-            if ("T ".equals(opcion) && "0".equals(opciones[aleatorio])) {
-                System.out.println("Has ganado");
-            } else if ("T ".equals(opcion) && "1".equals(opciones[aleatorio])) {
-                System.out.println("Has perdido");
-            } else if ("T".equals(opcion) && "2".equals(opciones[aleatorio])) {
-                System.out.println("Empate");
-            } 
+        } while (true); 
         
-            
-       
-           
-        } while (!opcion.equals("S"));
+    }
 }
-}
-
 
