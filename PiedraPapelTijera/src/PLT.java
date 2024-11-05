@@ -4,6 +4,7 @@ public class PLT {
     public static void main(String[] args) {
         String opcionMaquina = ""; 
         String opcion = "";
+        int contadorPiedra = 0, contadorPapel = 0, contadorTijera = 0, contadorVictorias = 0, contadorPerdidas = 0, contadorEmpate = 0;
         Scanner sc = new Scanner(System.in);
         String[] opciones = {"Piedra", "Papel", "Tijera"};
 
@@ -57,29 +58,62 @@ public class PLT {
             if (opcion.equals("P")) {
                 if (opcionMaquina.equals("Piedra")) {
                     System.out.println("Empate");
+                    contadorEmpate++;
                 } else if (opcionMaquina.equals("Tijera")) {
                     System.out.println("Has ganado");
+                    contadorVictorias++;
                 } else {
                     System.out.println("Has perdido");
+                    contadorPerdidas++;
                 }
             } else if (opcion.equals("L")) {
                 if (opcionMaquina.equals("Papel")) {
                     System.out.println("Empate");
+                    contadorEmpate++;
                 } else if (opcionMaquina.equals("Piedra")) {
                     System.out.println("Has ganado");
+                    contadorVictorias++;
                 } else {
                     System.out.println("Has perdido");
+                    contadorPerdidas++;
                 }
             } else if (opcion.equals("T")) {
                 if (opcionMaquina.equals("Tijera")) {
                     System.out.println("Empate");
+                    contadorEmpate++;
                 } else if (opcionMaquina.equals("Papel")) {
                     System.out.println("Has ganado");
+                    contadorVictorias++;
                 } else {
                     System.out.println("Has perdido");
+                    contadorPerdidas++;
                 }
             }
+
+            if(opcion.equals("P")){
+                contadorPiedra++;
+            }else if (opcion.equals("L")) {
+                contadorPapel++;
+            } else if (opcion.equals("T")) {
+                contadorTijera++;
+            }
+            System.out.println("---------------------------------");
+            System.out.println("Estadisticas:");
+            System.out.println("Piedra: " + contadorPiedra);
+            System.out.println("Papel: " + contadorPapel);
+            System.out.println("Tijera: " + contadorTijera);
+
+            System.out.println();
+
+            System.out.println("Victorias: " +contadorVictorias);
+            System.out.println("Perdidas: " +contadorPerdidas);
+            System.out.println("Empate: " +contadorEmpate);
+            
+            
+           
+
         } while (true); 
         
     }
 }
+
