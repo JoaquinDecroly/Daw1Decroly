@@ -96,10 +96,7 @@ ____________________
             case 'e':
                 System.out.println("Adios...");
                 d = true; //arreglo salida mediante booleano
-    
-            default:
-                System.out.println("Opción no válida. Por favor, elige 'a', 'b', 'c', 'd', o 'e'.");
-                }
+        }
 
     } while (d != true); 
     
