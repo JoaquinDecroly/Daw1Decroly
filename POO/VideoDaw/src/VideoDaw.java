@@ -1,3 +1,4 @@
+
 import java.time.LocalDate;
 
 public class VideoDaw {
@@ -47,7 +48,7 @@ public String mostrarInfoVideoClub(){
 public void mostrarPeliculasRegistradas(){
     for (int i = 0; i < peliculasRegistradas.length; i++) {
         if (peliculasRegistradas != null) {
-            System.out.println(peliculasRegistradas[i]);
+            System.out.println(i++ +"" +peliculasRegistradas[i]);
         }
     }
 }
@@ -55,16 +56,19 @@ public void mostrarPeliculasRegistradas(){
 public void mostrarClientesRegistrados(){
     for (int i = 0; i < clientesRegistrados.length; i++) {
         if (clientesRegistrados != null) {
-            System.out.println(clientesRegistrados[i]);
+            System.out.println(i++ +"" + clientesRegistrados[i]); 
         }
     }
 }
 
 public void alquilarPelicula(Pelicula p, Cliente c){
-   for (int i = 0; i < Cliente.peliculasAlquiladas.length; i++) {
-       
-   }
-}
-}
+// if(peliculasRegistradas != null && clientesRegistradas != null){
+ 
 
+//     if(p || r != null){
+
+//     }
+
+// }
+}
 
