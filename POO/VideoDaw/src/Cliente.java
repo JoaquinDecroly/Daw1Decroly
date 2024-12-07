@@ -11,7 +11,7 @@ private int edad;
 private LocalDate fechaBaja;
 
 //array
-Pelicula[] peliculasAlquiladas;
+static Pelicula[] peliculasAlquiladas;
 
 //constructor
 public Cliente(String dni, String nombre, int numsocio, String direccion, LocalDate fechaNacimiento){
