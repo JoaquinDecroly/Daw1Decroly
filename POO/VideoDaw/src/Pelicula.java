@@ -46,7 +46,7 @@ public class Pelicula {
         return isAlquilado;
     }
 
-    public void setIsAlquilada(){
+    public void setIsAlquilado(){
         isAlquilado = true;
     }
 
@@ -58,7 +58,3 @@ public class Pelicula {
     }
  
 }    
-
-    
-   
-    
