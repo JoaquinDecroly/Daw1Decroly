@@ -1,4 +1,5 @@
 
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -30,7 +31,7 @@ import java.util.Scanner;
                             case "1":
                             System.out.println("CIF= ");
                             String CIF = sc.nextLine();
-                                validarCif(CIF);
+                                VideoDaw.validarCif(CIF);
                             System.out.println("Dirección= ");
                             String direccion = sc.nextLine();
             
@@ -196,32 +197,27 @@ import java.util.Scanner;
                             LocalDate fechaNacimiento2 = LocalDate.parse(fechaNacimiento, formatter13); 
                             Cliente c1 = new Cliente(Dni, Nombre, 0, Direccion, fechaNacimiento2);               
                         case "4":
-                         alquilarPelicula(Pelicula p, Cliente c){
-                            System.out.println("Elige una pelicula= ");
-                            for (int i = 0; i < peliculasRegistradas.length; i++) {
-                                
-                            }
-    if (p.isAlquilada(false)) {
-        p.setIsAlquilada(true);
-        System.out.println("La película ha sido alquilada con éxito.");
-    } else {
-        System.out.println("La película no está disponible.");
-    }
-}
+                       for (int i = 0; i < VideoDaw.clientesRegistrados.length; i++) {
+                           for (int j = 0; j < VideoDaw.peliculasRegistradas.length; j++) {
+                            
+                        } 
+                       }
+                       
+                         VideoDaw.alquilarPelicula(null, c1);
+                           
                             break;
                             case "5":
-                            devolverPelicula(Pelicula p, Cliente c){
-                                if (p.isAlquilada()) {
-                                    p.setIsAlquilada(false);
+                            VideoDaw.devolverPelicula(Pelicula p, Cliente c){
+                                    if(p.setIsAlquilado() == false);
                                     System.out.println("La película ha sido devuelta con éxito.");
-                                    } else
+                                    } else{
                                     System.out.println("La película no está alquilada.");
-                                
-                            }
+                                }
                             
+
                             break;
-                        case "6":
-                        bajaCliente();
+                            case "6":
+                        sc = new Scanner (System.in);
                         System.out.println("Elija el cliente= ");
                         String cliente = sc.nextLine();
                        
@@ -244,10 +240,4 @@ import java.util.Scanner;
         return dni.matches("//d{7}[A-Z]$");    }
         
     }
-
-       
-
-        
-        
-    
 
