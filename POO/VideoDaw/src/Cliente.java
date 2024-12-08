@@ -61,8 +61,7 @@ public void mostrarPeliculasRegistradasDisponibles(){
 
 
 
- public boolean validarDni(String dni){
+ public static boolean validarDni(String dni){
     return dni.matches("//d{7}[A-Z]$");
 }
 }
-
