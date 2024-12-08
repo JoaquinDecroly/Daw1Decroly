@@ -187,7 +187,7 @@ import java.util.Scanner;
                             sc = new Scanner (System.in);
                             System.out.println("DNI= "); 
                             String Dni = sc.nextLine();
-                                validarDni(Dni);
+                                Cliente.validarDni(Dni);
                             System.out.println("Nombre= ");
                             String Nombre = sc.nextLine();
                             System.out.println("Direccion= ");
@@ -272,8 +272,4 @@ import java.util.Scanner;
            }while(!opcion.equals("8"));
         
         }
-    private static Boolean validarDni(String dni) {
-        return dni.matches("//d{7}[A-Z]$");    }
-        
     }
-
