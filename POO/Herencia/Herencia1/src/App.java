@@ -9,9 +9,8 @@ public class App {
             System.out.println("Elegir una opcion");
             System.out.println("-----------");
             System.out.println("0. Salir");
-            System.out.println("1. Astros");
-            System.out.println("2. Satelites");
-            System.out.println("3. Planetas");
+            System.out.println("1. Satelites");
+            System.out.println("2. Planetas");
             option = scanner.nextLine();
 
                switch (option) {
@@ -20,26 +19,6 @@ public class App {
                     break;
 
                 case "1":
-                String astro = "";
-                System.out.println("Astros");
-                System.out.println("1. Sol");
-                System.out.println("2. Luna");
-                System.out.println("3. Marte");
-                System.out.println("4. Jupiter");
-                System.out.println("5. Saturno");
-                System.out.println("6. Urano");
-                System.out.println("7. Neptuno");
-                System.out.println("8. Mercurio");
-                System.out.println("9. Venus");
-                astro = scanner.nextLine();
-
-                if (astro.equals("1")) {
-                    
-                    
-                }
-                break;
-
-                case "2":
                 String satelite = "";
                 System.out.println("Satelites");
                 System.out.println("1. Luna");
@@ -48,10 +27,30 @@ public class App {
                 System.out.println("4. Saturno");
                 System.out.println("5. Urano");
                 System.out.println("6. Neptuno");
+                satelite = scanner.nextLine();
+
+                switch (satelite) {
+                    case "1":
+                        
+
+        System.out.println("La Luna es el satélite natural de la Tierra.");
+        System.out.println("Diámetro: 3,475 km");
+        System.out.println("Distancia a la Tierra: 384,400 km");
+        System.out.println("Período orbital: 27,3 días");
+        System.out.println("Masa: 7,349 x 10^22 kg");
+        Satelites luna = new Satelites(384400, 27.3, "Luna", 384403, 27, 0, 0);
+   
+}
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
+
+                
                 break;
 
-                case "3":
-                String planeta = "";
+                case "2":
+               String planeta = "";
                 System.out.println("Planetas");
                 System.out.println("1. Mercurio");
                 System.out.println("2. Venus");
@@ -61,6 +60,8 @@ public class App {
                 System.out.println("6. Saturno");
                 System.out.println("7. Urano");
                 System.out.println("8. Neptuno");
+                System.out.println("9. Sol");
+
                 break;
 
                 default:
@@ -80,4 +81,6 @@ public class App {
         // Astros a1 = new Astros(500000000, 333333, 777777777, 94, 54);
         // System.out.println(a1);
     }
-}
+
+    public App() {
+    }
