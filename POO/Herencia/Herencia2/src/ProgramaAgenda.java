@@ -4,8 +4,10 @@ public class ProgramaAgenda {
 public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     String option = "";
-    
 
+    System.out.println("Bienvenido a la Agenda Decroly");
+    System.out.println("-----------------");
+    System.out.println("");
     do {
         System.out.println("1. Anadir contacto a la agenda");
         System.out.println("2. Eliminar contacto de la agenda");
