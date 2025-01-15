@@ -1,15 +1,15 @@
-import java.util.Arrays;
-
-public class Contacto extends Agenda {
+public class Contacto {
 
 public static int contC;
+public String name;
+public String telf;
     Contacto[] contactos;
     private Contacto contacto;
 
     //constructor
-public Contacto(String nombre, int numTelf, Contacto[] contactos) {
-        super(nombre, numTelf);
-        this.contactos = contactos;
+public Contacto(String nombre, String telf) {
+    this.name = name;
+    this.telf = telf;
     }
 
 
@@ -22,17 +22,28 @@ public Contacto(String nombre, int numTelf, Contacto[] contactos) {
 public static void setContC(int contC) {
     Contacto.contC = contC;
 }
-public Contacto getContacto() {
-    return contacto;
+
+public Contacto[] getContacto() {
+    return contactos;
+}
+
+public void setContacto(Contacto[] contacto) {
+    this.contactos = contacto;
 }
 public void setContacto(Contacto contacto) {
     this.contacto = contacto;
 }
+public String getName() {
+    return name;
+}
+    public String getTelf() {
+    return telf;
+}
 
 
 
 
-//metodos
+    //metodos
     public boolean agregarContacto(String nombre) {
         if (contC < contactos.length) {
             contactos[contC] = contacto;
@@ -90,8 +101,9 @@ public void setContacto(Contacto contacto) {
     public boolean buscarContacto1(String nombre){
         int index = -1;
         for (int i = 0; i < contC; i++) {
+            System.out.println(contactos[i]);
             if (contactos[i].equals(nombre)) {
-                System.out.println("Contactoo encontrado. Datos: " + contactos[i].getNombre() + contactos[i].getNumTelf());
+                System.out.println("Contacto encontrado. Datos: " + contactos[i].getName() + contactos[i].getTelf());
                 break;
             }
         }
@@ -105,11 +117,12 @@ public void setContacto(Contacto contacto) {
 }
 
 
-
     @Override
     public String toString() {
-        return "Contacto [nombre=" + nombre + ", numTelf=" + numTelf + ", contactos=" + Arrays.toString(contactos)
-                + ", contacto=" + contacto + "]";
+        return "Contacto [name=" + name + ", telf=" + telf + "]";
     }
+
 }
+
+
 
