@@ -62,6 +62,14 @@ Iterator<Producto> itera1 = productos.iterator();
         for (Producto a : productos) {
             System.out.println(a.getNombre() + " " + a.getCantidad());
         }
+  productos.clear();
+System.out.println("Productos despues de eliminar");
+if (productos.isEmpty()) {
+  System.out.println("No hay productos");
+} else {
+  productos.clear();
+  System.out.println("Se eliminaron los productos");
+}
 }
 
 
