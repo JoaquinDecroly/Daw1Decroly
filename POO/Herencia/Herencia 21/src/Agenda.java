@@ -2,11 +2,6 @@ public class Agenda {
     private Contacto[] contactos;
     private int contador;
 
-    public Agenda() {
-        this.contactos = new Contacto[10];
-        this.contador = 0;
-    }
-
     public boolean añadirContacto(Contacto c) {
         for (int i = 0; i < contador; i++) {
             if (contactos[i].getNombre().equalsIgnoreCase(c.getNombre())) {
