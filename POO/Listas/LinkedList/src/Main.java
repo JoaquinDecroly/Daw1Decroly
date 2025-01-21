@@ -60,7 +60,7 @@ Iterator<Producto> itera1 = productos.iterator();
         Collections.sort(productos);
 
         // Imprimir productos después de ordenar
-        System.out.println("Productos despues de ordenar por nombre");
+        System.out.println("Productos despues de ordenar por valor");
         for (Producto a : productos) {
             System.out.println(a.getNombre() + " " + a.getCantidad());
         }
