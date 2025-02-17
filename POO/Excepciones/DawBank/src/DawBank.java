@@ -1,23 +1,30 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class DawBank {
     public static void main(String[] args) {
         try (Scanner sc = new Scanner(System.in)) {
-            CuentaBancaria cuenta;
-            
+            CuentaBancaria cuenta = null;
+
             System.out.println("Bienvenido a DawBank");
-            
+
+            // Validar IBAN y crear cliente
             String iban = obtenerIbanValido(sc);
-            
-            cuenta = new CuentaBancaria(iban, crearCliente(sc));
-            
-            int opcion;
-            do {
-                opcion = mostrarMenu(sc);
-                procesarOpcion(opcion, cuenta, sc);
-            } while (opcion != 8);
+            Cliente cliente = crearCliente(sc);
+
+            if (cliente != null) { // Solo crear la cuenta si el cliente es válido
+                cuenta = new CuentaBancaria(iban, cliente);
+
+                int opcion;
+                do {
+                    opcion = mostrarMenu(sc);
+                    procesarOpcion(opcion, cuenta, sc);
+                } while (opcion != 8);
+            } else {
+                System.out.println("No se pudo crear la cuenta. Saliendo del programa...");
+            }
         }
     }
 
@@ -36,7 +43,7 @@ public class DawBank {
     }
 
     private static void procesarOpcion(int opcion, CuentaBancaria cuenta, Scanner scanner) {
-        scanner.nextLine(); 
+        scanner.nextLine(); // Limpiar buffer
         switch (opcion) {
             case 1:
                 cuenta.mostrarDatos();
@@ -68,18 +75,15 @@ public class DawBank {
         }
     }
 
-// MOVIMIENTOS
-// ------------------------------
-//tipos de movimiento
     private static void realizarIngreso(CuentaBancaria cuenta, Scanner scanner) {
         System.out.print("Ingrese la cantidad a ingresar: ");
         double cantidadIngreso = scanner.nextDouble();
         try {
             cuenta.ingresar(cantidadIngreso);
-            cuenta.AvisarHaciendaException(cantidadIngreso); 
+            cuenta.AvisarHaciendaException(cantidadIngreso);
         } catch (AvisarHaciendaException e) {
             System.err.println("Movimiento de 3000€ o superior. Avise a Hacienda: " + e.getMessage());
-           e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -88,46 +92,43 @@ public class DawBank {
         double cantidadRetirada = scanner.nextDouble();
         try {
             cuenta.retirar(cantidadRetirada);
-            cuenta.SaldoNegativoException(cantidadRetirada); 
+            cuenta.SaldoNegativoException(cantidadRetirada);
         } catch (SaldoNegativoException e) {
-           System.err.println("Saldo inferior o igual a límite de -50€. Error: " + e.getMessage());
-           e.printStackTrace();
+            System.err.println("Saldo inferior o igual a límite de -50€. Error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    
-
-//crear cliente
     private static Cliente crearCliente(Scanner scanner) {
-
         do {
-             String DNI = validarDni(scanner);
-    
+            String DNI = validarDni(scanner);
             String nombre = validarNombre(scanner);
-
             LocalDate fechaNacimiento = validarFechaNacimiento(scanner);
 
+            // Validar si el cliente es mayor de 18 años
+            if (calcularEdad(fechaNacimiento) < 18) {
+                System.out.println("No puede crear una cuenta porque no tiene al menos 18 años.");
+                return null; // No se crea el cliente
+            }
+
             String telefono = validarMovil(scanner);
-            
             String email = validarCorreo(scanner);
-            
 
             System.out.print("Ingrese la dirección del cliente: ");
             String direccion = scanner.nextLine();
 
-    
-        return new Cliente(DNI, nombre, fechaNacimiento, telefono, email, direccion);
-        
-        } while ((crearCliente(scanner) == null));
-       
-   
-}
+            return new Cliente(DNI, nombre, fechaNacimiento, telefono, email, direccion);
+        } while (true); // Repetir hasta que se cree un cliente válido
+    }
 
+    private static int calcularEdad(LocalDate fechaNacimiento) {
+        LocalDate hoy = LocalDate.now();
+        return hoy.getYear() - fechaNacimiento.getYear() -
+               (hoy.getMonthValue() < fechaNacimiento.getMonthValue() ||
+                (hoy.getMonthValue() == fechaNacimiento.getMonthValue() && hoy.getDayOfMonth() < fechaNacimiento.getDayOfMonth()) ? 1 : 0);
+    }
 
-//VALIDADORES
-// ---------------------------
-//validador iban
-private static String obtenerIbanValido(Scanner scanner) {
+    private static String obtenerIbanValido(Scanner scanner) {
         String iban;
         while (true) {
             System.out.print("Ingrese el IBAN (formato: XX0000000000000000000000): ");
@@ -138,12 +139,12 @@ private static String obtenerIbanValido(Scanner scanner) {
             System.out.println("IBAN inválido. Por favor, inténtelo de nuevo.");
         }
     }
+
     private static boolean validarIban(String iban) {
         return iban.matches("[A-Z]{2}\\d{22}");
     }
 
-    //validador email
-    public static String validarCorreo(Scanner scanner){
+    private static String validarCorreo(Scanner scanner) {
         String email;
         while (true) {
             System.out.println("Ingrese su correo: ");
@@ -154,102 +155,76 @@ private static String obtenerIbanValido(Scanner scanner) {
             System.out.println("Correo inválido. Por favor, inténtelo de nuevo.");
         }
     }
+
     private static boolean validarCorreo(String email) {
-       return email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+        return email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
     }
 
-    //validador telefono
-    public static String validarTelefono(Scanner scanner){
+    private static String validarTelefono(Scanner scanner) {
         String telefono;
         while (true) {
-            System.out.println("Introduzca el telefono: ");
+            System.out.println("Introduzca el teléfono: ");
             telefono = scanner.nextLine();
             if (validarTelefono(telefono)) {
                 return telefono;
-                }
-                System.out.println("Teléfono inválido. Por favor, inténtelo de nuevo.");
+            }
+            System.out.println("Teléfono inválido. Por favor, inténtelo de nuevo.");
+        }
     }
 
-}
     private static boolean validarTelefono(String telefono) {
         return telefono.matches("^\\d{9}$");
     }
 
-
-
-    //validador nombre
-    public static String validarNombre(Scanner scanner){
-        String nombre;
-        while (true) {
-            System.out.println("Ingrese su nombre: ");
-            nombre = scanner.nextLine();
-            if (validarNombre(nombre)) {
-                return nombre;
-                }
-                System.out.println("Nombre inválido. Por favor, inténtelo de nuevo.");
-                }
-    }
-    private static boolean validarNombre(String nombre) {
-        return nombre.matches("(?<!\\S)([A-Z][a-z]*)(\\s+[A-Z][a-z]*)*");
-        }
-
-    //validador movil
-    public static String validarMovil(Scanner scanner){
+    private static String validarMovil(Scanner scanner) {
         String telefono;
         while (true) {
-            System.out.println("Ingrese su telefono: ");
+            System.out.println("Ingrese su teléfono móvil: ");
             telefono = scanner.nextLine();
             if (validarMovil(telefono)) {
                 return telefono;
             }
-            System.out.println("Telefono inválido. Por favor, inténtelo de nuevo.");
+            System.out.println("Teléfono móvil inválido. Por favor, inténtelo de nuevo.");
         }
     }
+
     private static boolean validarMovil(String telefono) {
         return telefono.matches("^[679]\\d{8}$");
-        }
+    }
 
-    //validador dni
-    public static String validarDni(Scanner scanner){
+    private static String validarDni(Scanner scanner) {
         String DNI;
         while (true) {
-            System.out.println("Ingrese su dni: ");
+            System.out.println("Ingrese su DNI: ");
             DNI = scanner.nextLine();
-        if (validarDni(DNI)) {
-            return DNI;
-        }
-        System.out.println("DNI inválido. Por favor, inténtelo de nuevo.");
+            if (validarDni(DNI)) {
+                return DNI;
+            }
+            System.out.println("DNI inválido. Por favor, inténtelo de nuevo.");
         }
     }
+
     private static boolean validarDni(String dni) {
         return dni.matches("^[0-9]{8}[A-Za-z]$");
     }
 
+    private static LocalDate validarFechaNacimiento(Scanner scanner) {
+        while (true) {
+            System.out.print("Ingrese la fecha de nacimiento (dd/MM/yyyy): ");
+            String fechaIngresada = scanner.nextLine().trim();
+            if (fechaIngresada.isEmpty()) {
+                System.out.println("La fecha no puede estar vacía. Por favor, inténtelo de nuevo.");
+                continue;
+            }
+            try {
+                return validarFecha(fechaIngresada);
+            } catch (DateTimeParseException e) {
+                System.out.println("Fecha de nacimiento inválida: " + e.getMessage() + ". Por favor, use el formato dd/MM/yyyy.");
+            }
+        }
+    }
 
-    //validar fechaNacimiento
-// private static LocalDate validarFechaNacimiento(Scanner scanner) {
-//     while (true) {
-//         System.out.print("Introduce tu fecha de nacimiento (YYYY-MM-DD): ");
-//         String fechaNacimientoStr = scanner.nextLine();
-
-//         LocalDate fechaNacimiento = LocalDate.parse(fechaNacimientoStr);
-//         if (esMayorDeEdad(fechaNacimiento)) {
-//             System.out.println("Eres mayor de 18 años y puedes continuar.");
-//             return fechaNacimiento;
-//         } else {
-//             System.out.println("No cumples con los requisitos de edad. Inténtalo de nuevo.");
-//         }
-//     }
-// }
-
-// public static boolean esMayorDeEdad(LocalDate fechaNacimiento) {
-//     LocalDate hoy = LocalDate.now();
-//     int edad = Period.between(fechaNacimiento, hoy).getYears();
-
-//     return edad >= 18 && edad < 100;
-// }
-
-        private static LocalDate validarFecha(String fechaNacimiento) throws DateTimeParseException {
+    private static LocalDate validarFecha(String fechaNacimiento) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fecha = LocalDate.parse(fechaNacimiento, formatter);
         if (fecha.isAfter(LocalDate.now())) {
@@ -258,28 +233,19 @@ private static String obtenerIbanValido(Scanner scanner) {
         return fecha;
     }
 
-    private static LocalDate validarFechaNacimiento(Scanner scanner) {
-
+    private static String validarNombre(Scanner scanner) {
+        String nombre;
         while (true) {
-                System.out.print("Ingrese la fecha de nacimiento (dd/MM/yyyy): ");
-        String fechaIngresada = scanner.nextLine().trim(); 
-
-        if (fechaIngresada.isEmpty()) {
-            System.out.println("La fecha no puede estar vacía. Por favor, inténtelo de nuevo.");
-            return validarFechaNacimiento(scanner); 
-        }
-
-        try {
-            return validarFecha(fechaIngresada);
-        } catch (DateTimeParseException e) {
-            System.out.println("Fecha de nacimiento inválida: " + e.getMessage() + " Por favor, use el formato dd/MM/yyyy.");
-            return validarFechaNacimiento(scanner); 
+            System.out.println("Ingrese su nombre: ");
+            nombre = scanner.nextLine();
+            if (validarNombre(nombre)) {
+                return nombre;
+            }
+            System.out.println("Nombre inválido. Por favor, inténtelo de nuevo.");
         }
     }
-        }
 
+    private static boolean validarNombre(String nombre) {
+        return nombre.matches("(?<!\\S)([A-Z][a-z]*)(\\s+[A-Z][a-z]*)*");
     }
-
-
-
-
+}
