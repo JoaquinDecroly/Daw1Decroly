@@ -92,7 +92,7 @@ public class Libro implements Serializable {
     public static void crearLibro() {
         Scanner sc = new Scanner(System.in);
         String isbn = generateAndValidateISBN();
-        System.out.println("Generated ISBN: " + isbn);
+        System.out.println("ISBN autogenerado: " + isbn);
     
         System.out.print("Introduce el autor del libro: ");
         String autor = sc.nextLine();
