@@ -67,7 +67,6 @@ public class Libro implements Serializable {
     }
 
     public static void cargarLibro() {
-        if (new File("C:\\Users\\daw1.COMPU-S024\\Documents\\Daw1Decroly\\POO\\Ficheros\\Serializables\\src\\resources\\Biblioteca.dat").canRead()) {
            try (FileInputStream fis = new FileInputStream("C:\\Users\\daw1.COMPU-S024\\Documents\\Daw1Decroly\\POO\\Ficheros\\Serializables\\src\\resources\\Biblioteca.dat");
              ObjectInputStream ois = new ObjectInputStream(fis)) {
             libros = (List<Libro>) ois.readObject();
@@ -81,7 +80,7 @@ public class Libro implements Serializable {
         }  
         }
        
-    }
+    
 
     public static void escribirLibro() {
         try (FileOutputStream fos = new FileOutputStream("C:\\Users\\daw1.COMPU-S024\\Documents\\Daw1Decroly\\POO\\Ficheros\\Serializables\\src\\resources\\Biblioteca.dat");
