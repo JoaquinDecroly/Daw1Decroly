@@ -13,7 +13,7 @@ public class Producto {
     static boolean aplicarDto;
 
     public Producto(String ref, String nombre, String desc, int tipo, int cantidad,
-                    double precio, int descuento, int iva, boolean aplicarDto) {
+                    double precio, int descuento, int iva, boolean aplicarDto) { //sin id, ya que en la base de datos es autoincremental
         if (cantidad != 0 && precio != 0 && descuento != 0 && iva != 0) {
             this.ref = ref;
             this.nombre = nombre;
